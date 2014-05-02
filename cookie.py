@@ -16,4 +16,5 @@ pmf.Mult('Bowl 2', 0.5)
 
 pmf.Normalize()
 
-print pmf.Prob('Bowl 1')
+h = 'Bowl 1'
+print("Posterior probability of {} = {:.2f}".format(h, pmf.Prob(h)))

@@ -16,7 +16,7 @@ class Cookie(Pmf):
 
         hypos: sequence of string bowl IDs
         """
-        Pmf.__init__(self)
+        super().__init__(self)
         for hypo in hypos:
             self.Set(hypo, 1)
         self.Normalize()
@@ -55,7 +55,7 @@ def main():
     pmf.Update('vanilla')
 
     for hypo, prob in pmf.Items():
-        print hypo, prob
+        print("{} {:.2f}".format(hypo, prob))
 
 
 if __name__ == '__main__':
