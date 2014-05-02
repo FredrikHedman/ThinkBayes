@@ -44,6 +44,14 @@ class Cookie(Pmf):
         return like
 
 
+def make_draw(hypos, mixes, draws):
+    pmf = Cookie(hypos, mixes)
+    for i, d in enumerate(draws, 1):
+        pmf.Update(d)
+        print("Draw number {} gave {}".format(i, d))
+        for hypo, prob in pmf.Items():
+            print("\t{} {:.2f}".format(hypo, prob))
+
 def main():
     hypos = ['Bowl 1', 'Bowl 2']
     mixes = {
@@ -51,12 +59,11 @@ def main():
         hypos[1] : dict(vanilla=0.5, chocolate=0.5),
         }
 
-    pmf = Cookie(hypos, mixes)
+    draws = ['vanilla']
+    make_draw(hypos, mixes, draws)
 
-    pmf.Update('vanilla')
-
-    for hypo, prob in pmf.Items():
-        print("{} {:.2f}".format(hypo, prob))
+    draws = ['chocolate', 'vanilla', 'chocolate', 'chocolate']
+    make_draw(hypos, mixes, draws)
 
 
 if __name__ == '__main__':
