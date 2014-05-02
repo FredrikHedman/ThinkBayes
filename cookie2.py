@@ -52,6 +52,7 @@ def make_draw(hypos, mixes, draws):
         for hypo, prob in pmf.Items():
             print("\t{} {:.2f}".format(hypo, prob))
 
+
 def main():
     hypos = ['Bowl 1', 'Bowl 2']
     mixes = {

@@ -16,7 +16,7 @@ class Monty(Pmf):
 
         hypos: sequence of hypotheses
         """
-        Pmf.__init__(self)
+        super().__init__(self)
         for hypo in hypos:
             self.Set(hypo, 1)
         self.Normalize()
@@ -53,7 +53,7 @@ def main():
     pmf.Update(data)
 
     for hypo, prob in sorted(pmf.Items()):
-        print hypo, prob
+        print(hypo, prob)
 
 
 if __name__ == '__main__':
