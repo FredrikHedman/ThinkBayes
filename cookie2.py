@@ -11,15 +11,17 @@ from thinkbayes import Pmf
 class Cookie(Pmf):
     """A map from string bowl ID to probablity."""
 
-    def __init__(self, hypos):
+    def __init__(self, hypos, mixes):
         """Initialize self.
 
         hypos: sequence of string bowl IDs
+        mixes: one dict with bowl mixture per bowl ID
         """
         super().__init__(self)
         for hypo in hypos:
             self.Set(hypo, 1)
         self.Normalize()
+        self.mixes = dict(mixes)
 
     def Update(self, data):
         """Updates the PMF with new data.
@@ -30,11 +32,6 @@ class Cookie(Pmf):
             like = self.Likelihood(data, hypo)
             self.Mult(hypo, like)
         self.Normalize()
-
-    mixes = {
-        'Bowl 1':dict(vanilla=0.75, chocolate=0.25),
-        'Bowl 2':dict(vanilla=0.5, chocolate=0.5),
-        }
 
     def Likelihood(self, data, hypo):
         """The likelihood of the data under the hypothesis.
@@ -49,8 +46,12 @@ class Cookie(Pmf):
 
 def main():
     hypos = ['Bowl 1', 'Bowl 2']
+    mixes = {
+        hypos[0] : dict(vanilla=0.75, chocolate=0.25),
+        hypos[1] : dict(vanilla=0.5, chocolate=0.5),
+        }
 
-    pmf = Cookie(hypos)
+    pmf = Cookie(hypos, mixes)
 
     pmf.Update('vanilla')
 
